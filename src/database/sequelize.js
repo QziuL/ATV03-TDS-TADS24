@@ -13,4 +13,8 @@ const sequelize = dbConfig.storage
       logging: false,
     });
 
+console.log("Host: " + dbConfig.host)
+console.log("Port: " + dbConfig.port)
+console.log("Database: " + dbConfig.database)
+
 module.exports = sequelize;
