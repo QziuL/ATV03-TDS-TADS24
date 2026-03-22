@@ -1,12 +1,12 @@
 const { Router } = require('express');
-const { criar } = require('../controllers/livroController');
-const { listar } = require('../controllers/livroController');
-const { listarUm } = require('../controllers/livroController');
+const { criar, listar, listarUm, editar, deletar  } = require('../controllers/livroController');
 
 const router = Router();
 
 router.post("/", criar);
 router.get("/", listar);
 router.get("/:id", listarUm);
+router.put("/:id", editar);
+router.delete("/:id", deletar);
 
 module.exports = router;
