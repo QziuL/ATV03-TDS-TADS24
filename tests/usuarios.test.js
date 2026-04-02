@@ -76,7 +76,7 @@ describe("Usuários", () => {
 
   test("deve retornar 400 ao criar usuário sem email", async () => {
     try {
-      await axios.post(`${api}/usuarios`, {
+      await request(app).post('/usuarios').send({
         nome: "João Silva",
         senha: "123456",
         tipo: "aluno",
@@ -113,31 +113,40 @@ describe("Usuários", () => {
     expect(res.body.nome).toBe("Pedro Novo");
   });
 
-  // test("deve retornar 404 ao atualizar usuário inexistente", async () => {
-  //   try {
-  //     await axios.put(`${api}/usuarios/99999`, { nome: "Ninguém" });
-  //   } catch (err) {
-  //     expect(err.response.status).toBe(404);
-  //   }
-  // });
+  test("deve retornar 404 ao atualizar usuário inexistente", async () => {
+    try {
+      // await axios.put(`${api}/usuarios/99999`, { nome: "Ninguém" });
+      await request(app).put('/usuarios/99999').send({ nome: "Ninguém" });
+    } catch (err) {
+      expect(err.response.status).toBe(404);
+    }
+  });
 
-  // test("deve remover um usuário", async () => {
-  //   const criado = await axios.post(`${api}/usuarios`, {
-  //     nome: "Para Deletar",
-  //     email: `deletar_${Date.now()}@email.com`,
-  //     senha: "123456",
-  //     tipo: "aluno",
-  //   });
+  test("deve remover um usuário", async () => {
+    // const criado = await axios.post(`${api}/usuarios`, {
+    //   nome: "Para Deletar",
+    //   email: `deletar_${Date.now()}@email.com`,
+    //   senha: "123456",
+    //   tipo: "aluno",
+    // });
 
-  //   const res = await axios.delete(`${api}/usuarios/${criado.data.id}`);
-  //   expect(res.status).toBe(200);
-  // });
+    const criado = await request(app).post('/usuarios').send({
+      nome: "Para Deletar",
+      email: `deletar_${Date.now()}@email.com`,
+      senha: "123456",
+      tipo: "aluno",
+    });
 
-  // test("deve retornar 404 ao deletar usuário inexistente", async () => {
-  //   try {
-  //     await axios.delete(`${api}/usuarios/99999`);
-  //   } catch (err) {
-  //     expect(err.response.status).toBe(404);
-  //   }
-  // });
+    const res = await request(app).delete(`/usuarios/${criado.body.id}`);
+    expect(res.status).toBe(204);
+  });
+
+  test("deve retornar 404 ao deletar usuário inexistente", async () => {
+    try {
+      // await axios.delete(`${api}/usuarios/99999`);
+      await request(app).delete('/usuarios/99999');
+    } catch (err) {
+      expect(err.response.status).toBe(404);
+    }
+  });
 });

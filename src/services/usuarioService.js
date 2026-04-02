@@ -1,6 +1,6 @@
 const {Usuario} = require('../models');
 
-const criarUsuario = async (nome, email, senha, tipo) => {
+const criar = async (nome, email, senha, tipo) => {
     const usuario = await Usuario.create({nome, email, senha, tipo});
     return {
         id: usuario.id,
@@ -11,21 +11,20 @@ const criarUsuario = async (nome, email, senha, tipo) => {
     };
 }
 
-const listarUsuario = async () => {
+const listar = async () => {
     return await Usuario.findAll();
 }
 
-const listarUmUsuario = async (id) => {
+const listarUm = async (id) => {
     return await Usuario.findByPk(id);
 }
 
-const listarUmUsuarioEmail = async (email) => {
+const listarUmPeloEmail = async (email) => {
     return await Usuario.findOne({ where: { email } });
 }
 
-const editarUsuario = async (id, nome, email, senha, tipo) => {
+const editar = async (id, nome, email, senha, tipo) => {
     const usuario = await Usuario.findByPk(id);
-    console.log("usuario -> "+usuario);
     if (!usuario) throw new Error('Usuário não encontrado');
 
     if (nome) usuario.nome = nome;
@@ -43,4 +42,11 @@ const editarUsuario = async (id, nome, email, senha, tipo) => {
     }
 }   
 
-module.exports = {criarUsuario, listarUsuario, listarUmUsuario, listarUmUsuarioEmail, editarUsuario};
+const deletar = async (id) => {
+    const usuario = await Usuario.findByPk(id);
+    if (!usuario) throw new Error('Usuário não encontrado');
+
+    await usuario.destroy();
+}
+
+module.exports = {criar, listar, listarUm, listarUmPeloEmail, editar, deletar};
