@@ -12,6 +12,7 @@ const criar = async (req, res) => {
     try {
         res.status(201).json(await criarService(nome, email, await bcrypt.hash(senha, 10), tipo));
     } catch (error) {
+        console.log(error.response?.data);
         return res.status(500).json({ erro: 'Erro ao criar usuario'});
     }
 }

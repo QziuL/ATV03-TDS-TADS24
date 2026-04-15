@@ -1,7 +1,9 @@
-const axios = require('axios');
-const sequelize = require('../src/database/sequelize');
+
 const app = require('../src/app');
 const request = require('supertest');
+
+const axios = require('axios');
+const sequelize = require('../src/database/sequelize');
 
 require('dotenv').config();
 const api = `http://localhost:${process.env.PORT || 3000}`;

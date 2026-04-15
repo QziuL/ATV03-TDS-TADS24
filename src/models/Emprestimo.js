@@ -16,9 +16,13 @@ const Emprestimo = sequelize.define('Emprestimo', {
     allowNull: false,
   },
   data_devolucao_prevista: {
-    type: DataTypes.STRING,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
+  data_devolucao: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+  }
 }, {
   tableName: 'emprestimos',
   timestamps: true,

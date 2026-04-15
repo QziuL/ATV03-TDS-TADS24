@@ -16,7 +16,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       data_devolucao_prevista: {
-        type: Sequelize.STRING
+        type: Sequelize.DATEONLY
+      },
+      data_devolucao: {
+        type: Sequelize.DATEONLY,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
