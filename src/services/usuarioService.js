@@ -1,10 +1,10 @@
 const {Usuario} = require('../models');
 
 const criar = async (nome, email, senha, tipo) => {
-    const usuario = await Usuario.create({nome, email, senha, tipo});
+    const usuario = await Usuario.create({ name: nome, email, senha, tipo });
     return {
         id: usuario.id,
-        nome: usuario.nome,
+        name: usuario.nome,
         email: usuario.email,
         senha: usuario.senha,
         tipo: usuario.tipo,
@@ -49,4 +49,4 @@ const deletar = async (id) => {
     await usuario.destroy();
 }
 
-module.exports = {criar, listar, listarUm, listarUmPeloEmail, editar, deletar};
+module.exports = {criar, listar, editar, deletar, listarUm, listarUmPeloEmail};

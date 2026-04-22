@@ -3,7 +3,6 @@ const app = express();
 const apiRoutes = require('./routes/Routes');
 const cors = require('cors')
 
-
 const corsOrigin = process.env.CORS_ORIGIN;
 app.use(
   cors({

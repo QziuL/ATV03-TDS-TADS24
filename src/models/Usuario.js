@@ -7,7 +7,7 @@ const Usuario = sequelize.define('Usuario', {
         primaryKey: true,
         autoIncrement: true,
     },
-    nome: {
+    name: {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
@@ -23,6 +23,10 @@ const Usuario = sequelize.define('Usuario', {
         type: DataTypes.STRING(255),
         allowNull: false,
     }
+}, {
+    tableName: 'Usuarios',
+    timestamps: true,
+    underscored: false,
 });
 
 module.exports = Usuario;

@@ -7,12 +7,11 @@ const criar = async (req, res) => {
 
     if (!nome || !email || !senha || !tipo)
         return res.status(400).json({erro: "Verificar dados."});
-    if (await listarUmPeloEmail(email))
-        return res.status(400).json({erro: "Email já cadastrado."});
+    if (await listarUmPeloEmail(email)) return res.status(400).json({erro: "Email já cadastrado."});
     try {
         res.status(201).json(await criarService(nome, email, await bcrypt.hash(senha, 10), tipo));
     } catch (error) {
-        console.log(error.response?.data);
+        console.log(error.message);
         return res.status(500).json({ erro: 'Erro ao criar usuario'});
     }
 }
@@ -57,4 +56,4 @@ const deletar = async (req, res) => {
     }
 }
 
-module.exports = { criar, listar, listarUm, editar, deletar };
+module.exports = { criar, editar, deletar, listar, listarUm };
