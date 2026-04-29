@@ -1,10 +1,10 @@
-const {Usuario} = require('../models');
+const { Usuario } = require('../models');
 
 const criar = async (nome, email, senha, tipo) => {
-    const usuario = await Usuario.create({ name: nome, email, senha, tipo });
+    const usuario = await Usuario.create({ nome, email, senha, tipo });
     return {
         id: usuario.id,
-        name: usuario.nome,
+        nome: usuario.nome,
         email: usuario.email,
         senha: usuario.senha,
         tipo: usuario.tipo,
@@ -31,7 +31,7 @@ const editar = async (id, nome, email, senha, tipo) => {
     if (email) usuario.email = email;
     if (senha) usuario.senha = senha;
     if (tipo) usuario.tipo = tipo;
-    
+
     await usuario.save();
     return {
         id: usuario.id,
@@ -40,7 +40,7 @@ const editar = async (id, nome, email, senha, tipo) => {
         senha: usuario.senha,
         tipo: usuario.tipo,
     }
-}   
+}
 
 const deletar = async (id) => {
     const usuario = await Usuario.findByPk(id);
@@ -49,4 +49,4 @@ const deletar = async (id) => {
     await usuario.destroy();
 }
 
-module.exports = {criar, listar, editar, deletar, listarUm, listarUmPeloEmail};
+module.exports = { criar, listar, editar, deletar, listarUm, listarUmPeloEmail };

@@ -6,17 +6,16 @@ const criar = async (req, res) => {
     const { nome, email, senha, tipo } = req.body;
 
     if (!nome || !email || !senha || !tipo)
-        return res.status(400).json({erro: "Verificar dados."});
-    if (await listarUmPeloEmail(email)) return res.status(400).json({erro: "Email já cadastrado."});
+        return res.status(400).json({ erro: "Verificar dados." });
+    if (await listarUmPeloEmail(email)) return res.status(400).json({ erro: "Email já cadastrado." });
     try {
         res.status(201).json(await criarService(nome, email, await bcrypt.hash(senha, 10), tipo));
     } catch (error) {
-        console.log(error.message);
-        return res.status(500).json({ erro: 'Erro ao criar usuario'});
+        return res.status(500).json({ erro: 'Erro ao criar usuario' });
     }
 }
 
-const listar = async (req, res) => {  
+const listar = async (req, res) => {
     try {
         res.status(200).json(await listarService())
     } catch (error) {
@@ -32,7 +31,7 @@ const listarUm = async (req, res) => {
     }
 }
 
-const editar = async (req, res) => {   
+const editar = async (req, res) => {
     const { nome, email, senha, tipo } = req.body;
 
     try {
@@ -45,7 +44,7 @@ const editar = async (req, res) => {
     }
 }
 
-const deletar = async (req, res) => { 
+const deletar = async (req, res) => {
     try {
         await deletarService(req.params.id);
         res.status(204).json({ mensagem: 'Usuário deletado com sucesso' });

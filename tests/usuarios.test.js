@@ -2,14 +2,10 @@
 const app = require('../src/app');
 const request = require('supertest');
 
-const axios = require('axios');
 const sequelize = require('../src/database/sequelize');
 
-require('dotenv').config();
-const api = `http://localhost:${process.env.PORT || 3000}`;
-
 beforeAll(async () => {
-  await sequelize.sync({force: true});
+  await sequelize.sync({ force: true });
 });
 
 afterAll(async () => {
@@ -44,6 +40,7 @@ describe("Usuários", () => {
   test("deve retornar um usuário pelo id", async () => {
     // const res = await axios.get(`${api}/usuarios/1`);
     const res = await request(app).get('/usuarios/1');
+
     expect(res.status).toBe(200);
     expect(res.body.id).toBe(1);
     expect(res.body.nome).toBe("João Silva");
@@ -58,7 +55,7 @@ describe("Usuários", () => {
       expect(err.response.status).toBe(404);
     }
   });
-0
+  0
   test("deve retornar 400 ao criar usuário sem nome", async () => {
     try {
       // await axios.post(`${api}/usuarios`, {
@@ -110,7 +107,7 @@ describe("Usuários", () => {
       tipo: "aluno",
     });
     const res = await request(app).put(`/usuarios/${criado.body.id}`).send({ nome: "Pedro Novo" });
-    
+
     expect(res.status).toBe(200);
     expect(res.body.nome).toBe("Pedro Novo");
   });

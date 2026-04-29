@@ -1,11 +1,11 @@
 // const axios = require('axios');
+// require('dotenv').config();
+// const api = `http://localhost:${process.env.PORT || 3000}`;
+
 const sequelize = require('../src/database/sequelize');
 const request = require('supertest');
 const app = require('../src/app');
-require('dotenv').config();
-const api = `http://localhost:${process.env.PORT || 3000}`;
 
-// Altere para ids que existem no seu banco
 var USUARIO;
 var LIVRO;
 var USUARIO_2;
@@ -19,7 +19,7 @@ beforeAll(async () => {
         senha: "123456",
         tipo: "aluno",
     });
-    LIVRO = await request(app).post('/livros').send({ titulo: 'Clean Code', autor: 'Martin Code'});
+    LIVRO = await request(app).post('/livros').send({ titulo: 'Clean Code', autor: 'Martin Code' });
 
     USUARIO_2 = await request(app).post('/usuarios').send({
         nome: "Paulo Naulo",
@@ -28,7 +28,7 @@ beforeAll(async () => {
         tipo: "aluno",
     });
 
-    LIVRO_2 = await request(app).post('/livros').send({ titulo: 'Code Clean', autor: 'Code Martin'});
+    LIVRO_2 = await request(app).post('/livros').send({ titulo: 'Code Clean', autor: 'Code Martin' });
 });
 
 afterAll(async () => {
@@ -70,7 +70,7 @@ describe("Empréstimos", () => {
         expect(res.status).toBe(200);
         expect(res.body.data_devolucao_prevista).toBe("2025-05-01");
     });
-    
+
     test("deve retornar 404 para empréstimo inexistente", async () => {
         const res = await request(app).get('/emprestimos/99');
         expect(res.status).toBe(404);
